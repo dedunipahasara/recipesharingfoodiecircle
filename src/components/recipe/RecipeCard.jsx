@@ -4,8 +4,6 @@ import {
   HiHeart,
   HiOutlineChatBubbleOvalLeft,
   HiOutlineEye,
-  HiUserPlus,
-  HiUserMinus,
 } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
 
@@ -22,7 +20,6 @@ const RecipeCard = ({ recipe }) => {
   const [openDetails, setOpenDetails] = useState(false);
 
   const { updateLikeCount } = useRecipeStore();
-
   const {
     toggleFavorite,
     isFavorite,
@@ -36,7 +33,6 @@ const RecipeCard = ({ recipe }) => {
   const following = isFollowing(recipe.userId);
   const isOwner = user?.id === recipe.userId;
 
-  // ❤️ Like
   const handleLike = (e) => {
     e.stopPropagation();
     if (!isAuthenticated) return;
@@ -45,27 +41,20 @@ const RecipeCard = ({ recipe }) => {
     updateLikeCount(recipe.id, willAdd);
   };
 
-  // ➕ Follow
   const handleFollow = (e) => {
     e.stopPropagation();
     toggleFollow(recipe.userId);
   };
 
-  // 👁 Quick View
-  const handleOpenQuickView = (e) => {
-    e.stopPropagation();
-    setOpenDetails(true);
-  };
-
   return (
     <>
       {/* CARD */}
-      <div className="group bg-white rounded-[2.5rem] p-5 shadow-sm border border-gray-100 hover:shadow-2xl transition-all duration-500 flex flex-col h-full w-full max-w-lg mx-auto">
+      <div className="group w-full max-w-2xl mx-auto rounded-3xl overflow-hidden shadow-sm border border-white/30 hover:shadow-xl transition-all duration-500 bg-gradient-to-br from-white/90 via-orange-50/50 to-pink-50/50 backdrop-blur-md">
 
-        {/* USER TOP */}
-        <div className="flex items-center justify-between mb-4 px-1">
+        {/* HEADER */}
+        <div className="flex items-center justify-between px-5 pt-4">
           <div
-            className="flex items-center gap-3 cursor-pointer group/user"
+            className="flex items-center gap-3 cursor-pointer"
             onClick={(e) => {
               e.stopPropagation();
               navigate(`/profile/${recipe.username}`);
@@ -73,23 +62,23 @@ const RecipeCard = ({ recipe }) => {
           >
             <img
               src={recipe.userPhoto || "https://api.dicebear.com/7.x/avataaars/svg?seed=user"}
-              className="w-8 h-8 rounded-full object-cover"
+              className="w-8 h-8 rounded-full object-cover border border-white"
               alt=""
             />
-            <div className="flex flex-col">
-              <span className="text-[11px] font-black text-gray-800">
+            <div>
+              <p className="text-xs font-bold text-gray-900">
                 @{recipe.username}
-              </span>
-              <span className="text-[9px] text-gray-400">Chef</span>
+              </p>
+              <p className="text-[10px] text-gray-400">Chef</p>
             </div>
           </div>
 
           {!isOwner && isAuthenticated && (
             <button
               onClick={handleFollow}
-              className={`px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-wider border transition-all ${
+              className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase border transition ${
                 following
-                  ? "bg-gray-50 text-gray-400 border-gray-100"
+                  ? "bg-gray-100 text-gray-400 border-gray-200"
                   : "bg-white text-primary border-primary hover:bg-primary hover:text-white"
               }`}
             >
@@ -98,72 +87,78 @@ const RecipeCard = ({ recipe }) => {
           )}
         </div>
 
-        {/* IMAGE (HEIGHT REDUCED HERE) */}
+        {/* IMAGE */}
         <div
-          className="relative h-60 w-full overflow-hidden rounded-[2rem] mb-4 cursor-pointer shadow-inner"
           onClick={() => navigate(`/recipe/${recipe.id}`)}
+          className="relative w-full h-44 md:h-48 mt-3 overflow-hidden cursor-pointer"
         >
           <img
             src={recipe.image}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+            className="w-full h-full object-cover group-hover:scale-105 transition duration-700"
             alt={recipe.name}
           />
 
+          {/* CATEGORY */}
           <div className="absolute bottom-3 left-3">
-            <span className="bg-white/80 backdrop-blur-md px-3 py-1 rounded-xl text-[9px] font-black uppercase text-primary">
+            <span className="bg-white/80 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold text-primary uppercase border border-white/40">
               {recipe.category || "Food"}
             </span>
           </div>
         </div>
 
-        {/* TITLE */}
-        <h3
-          onClick={() => navigate(`/recipe/${recipe.id}`)}
-          className="font-serif italic text-xl text-gray-800 mb-5 cursor-pointer hover:text-primary transition-colors line-clamp-2"
-        >
-          {recipe.name}
-        </h3>
+        {/* CONTENT */}
+        <div className="px-5 py-3">
+          <h3
+            onClick={() => navigate(`/recipe/${recipe.id}`)}
+            className="font-serif italic text-lg text-gray-900 line-clamp-2 cursor-pointer hover:text-primary transition"
+          >
+            {recipe.name}
+          </h3>
 
-        {/* ACTIONS */}
-        <div className="mt-auto pt-4 border-t border-gray-50 flex justify-between items-center">
+          {/* ACTIONS */}
+          <div className="flex items-center justify-between mt-3 pt-2 border-t border-white/40">
 
-          {/* LEFT */}
-          <div className="flex items-center gap-6">
+            {/* LEFT ACTIONS */}
+            <div className="flex items-center gap-5">
 
-            {/* LIKE */}
-            <button onClick={handleLike} className="flex items-center gap-2">
-              {liked ? (
-                <HiHeart className="text-red-500 text-xl" />
-              ) : (
-                <HiOutlineHeart className="text-gray-400 text-xl" />
-              )}
-              <span className={`text-xs font-black ${liked ? "text-red-500" : "text-gray-300"}`}>
-                {recipe.likesCount || 0}
-              </span>
-            </button>
+              {/* LIKE */}
+              <button onClick={handleLike} className="flex items-center gap-1">
+                {liked ? (
+                  <HiHeart className="text-red-500 text-lg" />
+                ) : (
+                  <HiOutlineHeart className="text-gray-500 text-lg" />
+                )}
+                <span className={`text-xs font-bold ${liked ? "text-red-500" : "text-gray-500"}`}>
+                  {recipe.likesCount || 0}
+                </span>
+              </button>
 
-            {/* COMMENTS */}
+              {/* COMMENTS */}
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setOpenComments(true);
+                }}
+                className="flex items-center gap-1 text-gray-500 hover:text-primary transition"
+              >
+                <HiOutlineChatBubbleOvalLeft size={18} />
+                <span className="text-xs font-bold">
+                  {recipe.comments?.length || 0}
+                </span>
+              </button>
+            </div>
+
+            {/* QUICK VIEW */}
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                setOpenComments(true);
+                setOpenDetails(true);
               }}
-              className="flex items-center gap-2 text-gray-300 hover:text-primary"
+              className="p-2 rounded-full bg-white/70 hover:bg-black hover:text-white transition border border-white/40"
             >
-              <HiOutlineChatBubbleOvalLeft size={20} />
-              <span className="text-xs font-black">
-                {recipe.comments?.length || 0}
-              </span>
+              <HiOutlineEye size={16} />
             </button>
           </div>
-
-          {/* QUICK VIEW */}
-          <button
-            onClick={handleOpenQuickView}
-            className="p-2 bg-gray-50 rounded-full hover:bg-black hover:text-white transition"
-          >
-            <HiOutlineEye size={18} />
-          </button>
         </div>
       </div>
 

@@ -2,24 +2,35 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
-  .no-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
 }
 
-.custom-scrollbar::-webkit-scrollbar {
+/* Hide scrollbar (when needed) */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Custom thin scrollbar */
+.custom-scroll::-webkit-scrollbar {
   width: 6px;
 }
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+
+.custom-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
   border-radius: 10px;
 }
 
-body {
-  scroll-behavior: smooth;
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.25);
 }
