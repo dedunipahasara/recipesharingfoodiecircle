@@ -15,16 +15,20 @@ const App = () => {
     <Router>
       <div className="min-h-screen bg-base-200/30 font-sans text-base-content">
         <Navbar />
-        
+
         <div className="flex max-w-[1600px] mx-auto relative">
           <Sidebar />
-          
-          <main className={`flex-1 p-4 md:p-8 transition-all duration-300 ${isSidebarOpen ? 'md:ml-64' : 'ml-0'}`}>
+
+          <main
+            className={`flex-1 p-4 md:p-8 transition-all duration-300 ${
+              isSidebarOpen ? 'md:ml-64' : 'ml-0'
+            }`}
+          >
             <AppRoutes />
           </main>
         </div>
 
-        <ToastContainer 
+        <ToastContainer
           position="bottom-right"
           autoClose={3000}
           hideProgressBar={false}
