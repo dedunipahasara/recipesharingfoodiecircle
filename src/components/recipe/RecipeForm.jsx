@@ -60,28 +60,30 @@ const RecipeForm = ({ onSubmit, initialData, isEditing = false }) => {
       }}
       className="h-full flex flex-col"
     >
-      {/* MAIN GRID */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 flex-1">
+      {/* MAIN CARD */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 flex-1">
 
         {/* LEFT SIDE */}
         <div className="space-y-6">
 
-          {/* IMAGE (⬆️ bigger height) */}
-          <label className="block w-full h-56 md:h-64 rounded-3xl border-2 border-dashed border-base-content/10 bg-base-200/30 overflow-hidden cursor-pointer hover:border-primary/40 transition-all">
+          {/* IMAGE UPLOAD */}
+          <label className="group relative block w-full h-52 md:h-60 rounded-3xl overflow-hidden border border-gray-100 bg-gradient-to-br from-gray-50 to-white shadow-sm cursor-pointer hover:shadow-md transition-all">
+
             {formData.image ? (
               <img
                 src={formData.image}
                 alt="Preview"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
               />
             ) : (
-              <div className="flex flex-col items-center justify-center h-full opacity-40">
-                <HiOutlineCamera size={32} />
-                <span className="text-[10px] uppercase font-bold tracking-widest mt-2">
-                  Upload Image
-                </span>
+              <div className="flex flex-col items-center justify-center h-full text-gray-400">
+                <HiOutlineCamera size={34} />
+                <p className="text-[10px] uppercase tracking-widest mt-2 font-semibold">
+                  Upload Image / Video
+                </p>
               </div>
             )}
+
             <input
               type="file"
               className="hidden"
@@ -92,37 +94,37 @@ const RecipeForm = ({ onSubmit, initialData, isEditing = false }) => {
 
           {/* TITLE */}
           <div>
-            <label className="text-[9px] uppercase font-bold opacity-40 ml-1">
+            <label className="text-[10px] uppercase tracking-widest text-gray-400 font-semibold">
               Recipe Title
             </label>
             <input
               name="name"
               value={formData.name}
               onChange={handleChange}
-              placeholder="e.g. Garlic Pasta"
-              className="w-full bg-transparent border-b border-base-content/10 py-3 px-1 focus:border-primary outline-none text-sm"
+              placeholder="e.g. Creamy Garlic Pasta"
+              className="w-full mt-2 bg-white border border-gray-100 rounded-2xl px-4 py-3 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition"
             />
           </div>
 
           {/* CATEGORY */}
           <div>
-            <label className="text-[9px] uppercase font-bold opacity-40 ml-1">
+            <label className="text-[10px] uppercase tracking-widest text-gray-400 font-semibold">
               Category
             </label>
             <input
               name="category"
               value={formData.category}
               onChange={handleChange}
-              placeholder="e.g. Vegan"
-              className="w-full bg-transparent border-b border-base-content/10 py-3 px-1 focus:border-primary outline-none text-sm"
+              placeholder="e.g. Vegan, Dessert"
+              className="w-full mt-2 bg-white border border-gray-100 rounded-2xl px-4 py-3 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition"
             />
           </div>
         </div>
 
         {/* RIGHT SIDE */}
-        <div className="relative flex flex-col">
+        <div className="flex flex-col">
 
-          <label className="text-[9px] uppercase font-bold opacity-40 ml-1 mb-3">
+          <label className="text-[10px] uppercase tracking-widest text-gray-400 font-semibold mb-3">
             Description & Story
           </label>
 
@@ -132,26 +134,27 @@ const RecipeForm = ({ onSubmit, initialData, isEditing = false }) => {
               name="description"
               value={formData.description}
               onChange={handleChange}
-              placeholder="Write your cooking story..."
-              className="w-full h-full min-h-[420px] bg-transparent border border-base-content/10 rounded-3xl p-6 pr-12 focus:border-primary outline-none text-sm leading-relaxed resize-none"
+              placeholder="Share your cooking story..."
+              className="w-full h-full min-h-[360px] bg-white border border-gray-100 rounded-3xl p-5 text-sm leading-relaxed outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition resize-none shadow-sm"
             />
 
             {/* EMOJI */}
-            <div className="absolute bottom-5 right-5">
-              <EmojiPicker onEmojiClick={handleEmojiSelect} />
+            <div className="absolute bottom-4 right-4">
+              <div className="bg-white rounded-full shadow-md p-1">
+                <EmojiPicker onEmojiClick={handleEmojiSelect} />
+              </div>
             </div>
-
           </div>
         </div>
       </div>
 
-      {/* SUBMIT */}
-      <div className="mt-8">
+      {/* SUBMIT BUTTON */}
+      <div className="mt-6">
         <button
           type="submit"
-          className="w-full bg-primary text-primary-content py-3 rounded-2xl font-bold uppercase tracking-[0.2em] text-[10px] shadow-lg shadow-primary/20 hover:scale-[1.01] active:scale-95 transition-all"
+          className="w-full py-3 rounded-2xl bg-gradient-to-r from-primary to-primary/80 text-white font-bold uppercase tracking-widest text-[11px] shadow-lg hover:shadow-xl hover:scale-[1.01] active:scale-95 transition-all"
         >
-          {isEditing ? "Update Masterpiece" : "Publish Recipe"}
+          {isEditing ? "Update Recipe ✨" : "Publish Recipe 🚀"}
         </button>
       </div>
     </form>
