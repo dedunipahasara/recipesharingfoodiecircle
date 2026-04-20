@@ -83,6 +83,10 @@ view recipe
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/dedunipahasara/FoodieCircle.git
+git clone git clone git clone https://github.com/dedunipahasara/FoodieCircle.git
+cd FoodieCircle
+
+cd FoodieCircle
+
 cd FoodieCircle
 
